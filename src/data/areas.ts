@@ -1,0 +1,102 @@
+export const helpAreas = [
+    {
+        name: "Correo y cuentas",
+        description: "Acceso, correo o cuenta institucional",
+        icon: "✉",
+        issues: [
+            "Problema de acceso a correo",
+            "Buzón lleno",
+            "Office 365",
+            "Spam",
+            "Phishing",
+            "Directorio de Personas",
+            "Datos erróneos",
+            "Otro problema de cuenta",
+        ],
+    },
+    {
+        name: "Internet y redes",
+        description: "WiFi, cable, VPN o telefonía",
+        icon: "⌁",
+        issues: [
+            "Problema de conexión WiFi",
+            "Conexión por cable",
+            "Acceso VPN",
+            "Telefonía",
+            "Otro problema de red",
+        ],
+    },
+    {
+        name: "Plataformas USM",
+        description: "Aula, SIGA, pagos y sistemas",
+        icon: "▣",
+        issues: [
+            "Aula Virtual",
+            "SIGA",
+            "Pagos",
+            "Plataformas institucionales",
+            "Otro problema de plataforma",
+        ],
+    },
+    {
+        name: "Software y licencias",
+        description: "Programas y sistemas operativos",
+        icon: "▱",
+        issues: [
+            "Instalación de software",
+            "Activación de licencia",
+            "Sistema operativo",
+            "Otro problema de software",
+        ],
+    },
+    {
+        name: "Equipos e impresión",
+        description: "Computadores, impresoras o proyectores",
+        icon: "▤",
+        issues: [
+            "Computador",
+            "Impresora",
+            "Proyector",
+            "Otro equipo",
+        ],
+    },
+    {
+        name: "Seguridad informática",
+        description: "Virus, phishing o vulnerabilidades",
+        icon: "⌾",
+        issues: [
+            "Posible virus",
+            "Correo sospechoso o phishing",
+            "Cuenta comprometida",
+            "Otro incidente de seguridad",
+        ],
+    },
+    {
+        name: "Infraestructura y espacios",
+        description: "Baños, agua, luz, salas o mobiliario",
+        icon: "⌂",
+        issues: [
+            "Electricidad o iluminación",
+            "Agua o baños",
+            "Sala o mobiliario",
+            "Otro problema de infraestructura",
+        ],
+    },
+    {
+        name: "Accesos y permisos",
+        description: "Laboratorios, edificios o sistemas",
+        icon: "⊙",
+        issues: [
+            "Acceso a edificio o laboratorio",
+            "Permiso en sistema",
+            "Tarjeta de acceso",
+            "Otro acceso o permiso",
+        ],
+    },
+    {
+        name: "Otro tema",
+        description: "No encuentro mi problema aquí",
+        icon: "•••",
+        issues: ["Otro tema"],
+    },
+];
