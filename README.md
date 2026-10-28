@@ -1,3 +1,10 @@
+# Instrucciones para correr la página
+1. Abrir la carpeta del proyecto y ejecutar en la terminal:
+'''batch
+npm run dev
+'''
+2. Abre en el navegador la dirección que aparece en la terminal, normalmente [http://localhost:5173/](http://localhost:5173/).
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
