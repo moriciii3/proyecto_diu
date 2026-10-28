@@ -1,9 +1,9 @@
 # Instrucciones para correr la página
 1. Abrir la carpeta del proyecto y ejecutar en la terminal:
-'''batch
+```batch
 npm run dev
-'''
-2. Abre en el navegador la dirección que aparece en la terminal, normalmente [http://localhost:5173/](http://localhost:5173/).
+```
+3. Abre en el navegador la dirección que aparece en la terminal, normalmente [http://localhost:5173/](http://localhost:5173/).
 
 # React + TypeScript + Vite
 
