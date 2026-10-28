@@ -3,7 +3,7 @@
 ```batch
 npm run dev
 ```
-3. Abre en el navegador la dirección que aparece en la terminal, normalmente [http://localhost:5173/](http://localhost:5173/).
+2. Abre en el navegador la dirección que aparece en la terminal, normalmente [http://localhost:5173/](http://localhost:5173/).
 
 # React + TypeScript + Vite
 
