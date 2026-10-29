@@ -64,7 +64,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
     // Comprueba los campos obligatorios antes de pasar al siguiente paso.
     function continueToReview() {
         if (step === 1 && !selectedArea) {
-            setError("Selecciona el área que mejor describe tu solicitud.");
+            setError("Selecciona la categoría que mejor describe tu solicitud.");
             return;
         }
         if (step === 2) {
@@ -114,7 +114,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
     return (
         <main className="container page-content page-content--narrow">
             <Link className="back-link" to="/">
-                ← Volver al inicio
+                <i className="bi bi-arrow-left" aria-hidden="true" /> Volver al inicio
             </Link>
             <div className="form-page-heading">
                 <div>
@@ -124,7 +124,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                 <span className="step-count">Paso {step} de 3</span>
             </div>
             <div className="stepper" aria-label={`Paso ${step} de 3`}>
-                {["Tipo de ayuda", "Detalles", "Confirmar"].map(
+                {["Categoría", "Detalles", "Revisar"].map(
                     (label, index) => {
                         const stepNumber = index + 1;
                         const stepClass =
@@ -135,7 +135,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                   : "stepper-item";
                         return (
                             <div className={stepClass} key={label}>
-                                <span>{stepNumber < step ? "✓" : stepNumber}</span>
+                                <span>{stepNumber < step ? <i className="bi bi-check-lg" aria-hidden="true" /> : stepNumber}</span>
                                 {label}
                             </div>
                         );
@@ -146,7 +146,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
             {step === 1 && (
                 <section className="card panel-card form-panel">
                     <div className="card-body">
-                        <h2>Selecciona el área del problema</h2>
+                        <h2>Selecciona la categoría del problema</h2>
                         <p className="panel-intro">
                             Agrupamos los servicios para que no tengas que
                             buscar en una lista técnica extensa.
@@ -165,7 +165,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                         type="button"
                                     >
                                         <span className="area-icon">
-                                            {area.icon}
+                                            <i className={`bi bi-${area.icon}`} aria-hidden="true" />
                                         </span>
                                         <span>
                                             <strong>{area.name}</strong>
@@ -185,7 +185,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                 onClick={continueToReview}
                                 type="button"
                             >
-                                Continuar →
+                                Continuar <i className="bi bi-arrow-right" aria-hidden="true" />
                             </button>
                         </div>
                     </div>
@@ -222,14 +222,14 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                     ))}
                                 </select>
                                 <div className="selection-note">
-                                    Área seleccionada:{" "}
+                                    Categoría seleccionada:{" "}
                                     <strong>{selectedArea}</strong>.{" "}
                                     <button
                                         className="inline-button"
                                         onClick={() => setStep(1)}
                                         type="button"
                                     >
-                                        Cambiar área
+                                        Cambiar categoría
                                     </button>
                                 </div>
                             </div>
@@ -295,7 +295,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                             </div>
                             <div className="col-md-6">
                                 <label className="form-label" htmlFor="impact">
-                                    ¿Cuánto te afecta?
+                                    Impacto: ¿cuánto te afecta?
                                 </label>
                                 <select
                                     className="form-select"
@@ -315,10 +315,10 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                     className="form-label"
                                     htmlFor="attachment"
                                 >
-                                    Adjuntar evidencia (opcional)
+                                    Evidencia (opcional)
                                 </label>
                                 <label className="attachment-box" htmlFor="attachment">
-                                    <span className="attachment-symbol">⌕</span>
+                                    <i className="bi bi-paperclip attachment-symbol" aria-hidden="true" />
                                     <span>
                                         <strong>
                                             {draft.attachment ??
@@ -346,7 +346,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                             <h2>¿A quién debemos contactar?</h2>
                             <p className="panel-intro">
                                 Usaremos estos datos para identificarte y
-                                avisarte sobre el avance del reporte.
+                                avisarte sobre el avance de la solicitud.
                             </p>
                             <div className="row g-3">
                                 <div className="col-md-6">
@@ -384,8 +384,8 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                         value={draft.email}
                                     />
                                     <div className="form-text">
-                                        Aquí recibirás las notificaciones del
-                                        caso.
+                                        Aquí recibirás las notificaciones de la
+                                        solicitud.
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -409,18 +409,18 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                         </div>
                         <div className="form-step-footer">
                             <button
-                                className="btn btn-outline-secondary"
+                                className="btn btn-outline-primary"
                                 onClick={() => setStep(1)}
                                 type="button"
                             >
-                                Volver
+                                <i className="bi bi-arrow-left" aria-hidden="true" /> Volver
                             </button>
                             <button
                                 className="btn btn-primary"
                                 onClick={continueToReview}
                                 type="button"
                             >
-                                Revisar solicitud →
+                                Revisar solicitud <i className="bi bi-arrow-right" aria-hidden="true" />
                             </button>
                         </div>
                     </div>
@@ -432,26 +432,26 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                     <div className="card-body">
                         <h2>Revisa antes de enviar</h2>
                         <p className="panel-intro">
-                            Confirma que tanto el reporte como tus datos
-                            personales estén correctos.
+                            Confirma que tanto la solicitud como tus datos
+                            de contacto estén correctos.
                         </p>
                         <div className="review-card">
                             <div className="review-heading">
                                 <div>
-                                    <span className="eyebrow">REPORTE</span>
-                                    <h3>Información de la solicitud</h3>
+                                    <span className="eyebrow">SOLICITUD</span>
+                                    <h3>¿La información está correcta?</h3>
                                 </div>
                                 <button
                                     className="inline-button"
                                     onClick={() => setStep(2)}
                                     type="button"
                                 >
-                                    Editar reporte
+                                    Editar solicitud
                                 </button>
                             </div>
                             <dl className="review-details">
                                 <div>
-                                    <dt>Área</dt>
+                                    <dt>Categoría</dt>
                                     <dd>{selectedArea}</dd>
                                 </div>
                                 <div>
@@ -467,14 +467,14 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                     <dd>{draft.description}</dd>
                                 </div>
                                 <div>
-                                    <dt>Campus · Impacto</dt>
+                                    <dt>Campus o sede · Impacto</dt>
                                     <dd>
                                         {draft.campus} · {draft.impact}
                                     </dd>
                                 </div>
                                 {draft.attachment && (
                                     <div>
-                                        <dt>Adjunto</dt>
+                                        <dt>Evidencia</dt>
                                         <dd>{draft.attachment}</dd>
                                     </div>
                                 )}
@@ -484,7 +484,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                             <div className="review-heading">
                                 <div>
                                     <span className="eyebrow">
-                                        DATOS PERSONALES
+                                        DATOS DE CONTACTO
                                     </span>
                                     <h3>¿Estos datos están correctos?</h3>
                                 </div>
@@ -511,25 +511,25 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                 </div>
                             </dl>
                             <div className="confirmation-note">
-                                ✓ Confirma que estos datos son correctos antes
+                                <i className="bi bi-check-circle" aria-hidden="true" /> Confirma que estos datos son correctos antes
                                 de enviar.
                             </div>
                         </div>
                         <div className="next-steps-note">
                             <strong>¿Qué pasará después?</strong>
                             <p>
-                                Recibirás un número de seguimiento y te
-                                avisaremos cada vez que el caso avance. También
-                                podrás conversar con soporte desde la solicitud.
+                                Recibirás un número de solicitud y te
+                                avisaremos cada vez que la solicitud avance. Podrás
+                                conversar con soporte desde ella.
                             </p>
                         </div>
                         <div className="form-step-footer">
                             <button
-                                className="btn btn-outline-secondary"
+                                className="btn btn-outline-primary"
                                 onClick={() => setStep(2)}
                                 type="button"
                             >
-                                Volver
+                                <i className="bi bi-arrow-left" aria-hidden="true" /> Volver
                             </button>
                             <button
                                 className="btn btn-primary"

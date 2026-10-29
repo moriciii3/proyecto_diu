@@ -28,7 +28,7 @@ const helpArticles = [
     },
 ];
 
-// Filtra artículos breves de ayuda para orientar antes de crear un caso.
+// Filtra artículos breves de ayuda para orientar antes de crear una solicitud.
 function HelpPage() {
     const [search, setSearch] = useState("");
     const filteredArticles = useMemo(
@@ -44,12 +44,12 @@ function HelpPage() {
     return (
         <main className="container page-content page-content--narrow">
             <Link className="back-link" to="/">
-                ← Volver al inicio
+                <i className="bi bi-arrow-left" aria-hidden="true" /> Volver al inicio
             </Link>
             <div className="page-title-row">
                 <div>
                     <span className="eyebrow">CENTRO DE AYUDA</span>
-                    <h1>Encuentra una solución</h1>
+                    <h1>Buscar una solución</h1>
                     <p>
                         Revisa estas respuestas rápidas o cuéntanos qué está
                         pasando.
@@ -59,7 +59,7 @@ function HelpPage() {
                     className="btn btn-primary"
                     to="/solicitudes/nueva"
                 >
-                    Crear solicitud
+                    <i className="bi bi-plus-lg" aria-hidden="true" /> Nueva solicitud
                 </Link>
             </div>
             <section className="card panel-card">
@@ -83,7 +83,7 @@ function HelpPage() {
                                         <small>{article.category}</small>
                                         <strong>{article.title}</strong>
                                     </span>
-                                    <span aria-hidden="true">＋</span>
+                                    <i className="bi bi-plus-lg" aria-hidden="true" />
                                 </summary>
                                 <p>{article.answer}</p>
                             </details>

@@ -1,14 +1,33 @@
 import { useState, type FormEvent } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { formatDate, statusClass } from "../data/formatters";
-import type { ServiceRequest } from "../types";
+import { formatDate, STATUS_ORDER, statusClass } from "../data/formatters";
+import type { RequestStatus, ServiceRequest } from "../types";
+
+// Textos de cada paso del seguimiento, nombrados igual que los estados.
+const timelineDescriptions: Record<
+    RequestStatus,
+    { complete: string; pending: string }
+> = {
+    "En curso": {
+        complete: "El equipo comenzó a trabajar en tu solicitud.",
+        pending: "El equipo comenzará a trabajar en tu solicitud.",
+    },
+    "En investigación": {
+        complete: "El equipo investigó la causa del problema.",
+        pending: "Si es necesario, el equipo investigará la causa.",
+    },
+    Resuelta: {
+        complete: "Esta solicitud fue resuelta.",
+        pending: "Te avisaremos cuando esté resuelta.",
+    },
+};
 
 type RequestDetailPageProps = {
     requests: ServiceRequest[];
     onSendMessage: (requestId: string, content: string) => void;
 };
 
-// Muestra el seguimiento, los datos del caso y su conversación con soporte.
+// Muestra el seguimiento, los datos de la solicitud y su conversación con soporte.
 function RequestDetailPage({
     requests,
     onSendMessage,
@@ -28,10 +47,13 @@ function RequestDetailPage({
 
     if (!request) return <Navigate to="/solicitudes" replace />;
 
+    const currentStep = STATUS_ORDER.indexOf(request.status);
+
     return (
         <main className="container page-content">
             <Link className="back-link" to="/solicitudes">
-                ← Volver a mis solicitudes
+                <i className="bi bi-arrow-left" aria-hidden="true" /> Volver a
+                mis solicitudes
             </Link>
             <div className="detail-heading">
                 <div>
@@ -50,49 +72,54 @@ function RequestDetailPage({
                             <h2 className="panel-title">Seguimiento</h2>
                             <div className="timeline">
                                 <div className="timeline-item timeline-item--complete">
-                                    <span className="timeline-marker">✓</span>
+                                    <span className="timeline-marker">
+                                        <i className="bi bi-check-lg" aria-hidden="true" />
+                                    </span>
                                     <div>
-                                        <h3>Solicitud recibida</h3>
+                                        <h3>Recibida</h3>
                                         <p>
                                             {formatDate(request.createdAt)} · Te
                                             enviamos una confirmación por correo.
                                         </p>
                                     </div>
                                 </div>
-                                <div
-                                    className={`timeline-item${request.status !== "En curso" ? " timeline-item--complete" : " timeline-item--current"}`}
-                                >
-                                    <span className="timeline-marker">
-                                        {request.status === "En curso" ? "2" : "✓"}
-                                    </span>
-                                    <div>
-                                        <h3>
-                                            {request.status === "En curso"
-                                                ? "El equipo está trabajando en tu caso"
-                                                : "El equipo está investigando"}
-                                        </h3>
-                                        <p>
-                                            {request.updatedLabel} ·{" "}
-                                            {request.responsible} está revisando
-                                            tu solicitud.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    className={`timeline-item${request.status === "Resuelta" ? " timeline-item--complete" : ""}`}
-                                >
-                                    <span className="timeline-marker">
-                                        {request.status === "Resuelta" ? "✓" : "3"}
-                                    </span>
-                                    <div>
-                                        <h3>Solución y cierre</h3>
-                                        <p>
-                                            {request.status === "Resuelta"
-                                                ? "Esta solicitud fue resuelta."
-                                                : "Te avisaremos cuando esté resuelto."}
-                                        </p>
-                                    </div>
-                                </div>
+                                {STATUS_ORDER.map((status, index) => {
+                                    const isComplete =
+                                        index < currentStep ||
+                                        (status === "Resuelta" &&
+                                            index === currentStep);
+                                    const isCurrent =
+                                        index === currentStep && !isComplete;
+                                    return (
+                                        <div
+                                            className={`timeline-item${isComplete ? " timeline-item--complete" : ""}${isCurrent ? " timeline-item--current" : ""}`}
+                                            key={status}
+                                        >
+                                            <span className="timeline-marker">
+                                                {isComplete ? (
+                                                    <i
+                                                        className="bi bi-check-lg"
+                                                        aria-hidden="true"
+                                                    />
+                                                ) : (
+                                                    index + 2
+                                                )}
+                                            </span>
+                                            <div>
+                                                <h3>{status}</h3>
+                                                <p>
+                                                    {isCurrent
+                                                        ? `${request.updatedLabel} · ${request.responsible} está revisando tu solicitud.`
+                                                        : timelineDescriptions[status][
+                                                              isComplete
+                                                                  ? "complete"
+                                                                  : "pending"
+                                                          ]}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </section>
@@ -181,7 +208,7 @@ function RequestDetailPage({
                                     <dd>{request.issueType}</dd>
                                 </div>
                                 <div>
-                                    <dt>Campus</dt>
+                                    <dt>Campus o sede</dt>
                                     <dd>{request.campus}</dd>
                                 </div>
                                 <div>

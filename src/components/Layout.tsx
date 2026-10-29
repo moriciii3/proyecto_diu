@@ -28,7 +28,7 @@ function isServiceRequest(value: unknown): value is ServiceRequest {
     );
 }
 
-// Recupera las solicitudes guardadas; si es la primera visita, usa los casos de muestra.
+// Recupera las solicitudes guardadas; si es la primera visita, usa las solicitudes de muestra.
 function loadRequests(): ServiceRequest[] {
     try {
         const storedRequests = localStorage.getItem(STORAGE_KEY);

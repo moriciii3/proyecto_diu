@@ -1,0 +1,108 @@
+// Tema de la plataforma: única fuente de colores, tipografía y radios.
+// Los componentes usan estas variables; para ajustar el diseño se edita solo este archivo.
+// Los contrastes indicados cumplen WCAG AA (texto ≥ 4.5:1) sobre fondo blanco.
+
+:root {
+  // Colores de marca
+  --color-primary: #1857a4; // 7.15:1
+  --color-primary-hover: #123d75;
+  --color-primary-light: #5f91cf;
+  --color-primary-border: #cbd9ed;
+  --color-primary-subtle: #edf4ff;
+
+  // Neutros: texto
+  --color-text: #17243b; // 15.5:1
+  --color-text-secondary: #43536a; // 7.8:1
+  --color-text-muted: #5b6b82; // 5.4:1
+  --color-icon-muted: #8995a7; // solo íconos y elementos no textuales (3:1)
+
+  // Neutros: superficies y bordes
+  --color-bg: #f5f7fb;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f7f9fc;
+  --color-border: #e3e8ef;
+  --color-border-strong: #cbd6e3;
+
+  // Estados de una solicitud (fondo / texto)
+  --color-status-progress-bg: #e7f2ff;
+  --color-status-progress-text: #1857a4;
+  --color-status-investigating-bg: #fff3d8;
+  --color-status-investigating-text: #7a5410; // 6.1:1
+  --color-status-resolved-bg: #e5f6ed;
+  --color-status-resolved-text: #26734b; // 5.2:1
+
+  // Tipografía
+  --font-family-base: 'DM Sans', sans-serif;
+  --font-family-heading: 'Manrope', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-display: 40px;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  // Bordes redondeados
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  // Bootstrap 5.3 lee estas variables: así sus componentes usan el mismo tema.
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: 24, 87, 164;
+  --bs-body-font-family: var(--font-family-base);
+  --bs-body-color: var(--color-text);
+  --bs-body-bg: var(--color-bg);
+  --bs-border-color: var(--color-border);
+  --bs-link-color: var(--color-primary);
+  --bs-link-color-rgb: 24, 87, 164;
+  --bs-link-hover-color: var(--color-primary-hover);
+  --bs-link-hover-color-rgb: 18, 61, 117;
+  --bs-focus-ring-color: rgba(24, 87, 164, 0.25);
+  --bs-border-radius: var(--radius-sm);
+  --bs-border-radius-sm: var(--radius-sm);
+  --bs-border-radius-lg: var(--radius-md);
+  --bs-border-radius-xl: var(--radius-lg);
+}
+
+// Botones de Bootstrap: sus colores se fijan al compilar, por eso se reasignan aquí.
+.btn {
+  --bs-btn-font-weight: var(--font-weight-bold);
+  --bs-btn-border-radius: var(--radius-sm);
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem var(--bs-focus-ring-color);
+}
+
+.btn-lg {
+  --bs-btn-border-radius: var(--radius-sm);
+}
+
+.btn-primary {
+  --bs-btn-color: var(--color-surface);
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-hover-color: var(--color-surface);
+  --bs-btn-hover-bg: var(--color-primary-hover);
+  --bs-btn-hover-border-color: var(--color-primary-hover);
+  --bs-btn-active-color: var(--color-surface);
+  --bs-btn-active-bg: var(--color-primary-hover);
+  --bs-btn-active-border-color: var(--color-primary-hover);
+  --bs-btn-disabled-color: var(--color-surface);
+  --bs-btn-disabled-bg: var(--color-primary);
+  --bs-btn-disabled-border-color: var(--color-primary);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary-border);
+  --bs-btn-hover-color: var(--color-primary-hover);
+  --bs-btn-hover-bg: var(--color-primary-subtle);
+  --bs-btn-hover-border-color: var(--color-primary);
+  --bs-btn-active-color: var(--color-primary-hover);
+  --bs-btn-active-bg: var(--color-primary-subtle);
+  --bs-btn-active-border-color: var(--color-primary);
+}
+
+.progress {
+  --bs-progress-bar-bg: var(--color-primary);
+}

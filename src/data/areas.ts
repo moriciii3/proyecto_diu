@@ -2,7 +2,7 @@ export const helpAreas = [
     {
         name: "Correo y cuentas",
         description: "Acceso, correo o cuenta institucional",
-        icon: "✉",
+        icon: "envelope",
         issues: [
             "Problema de acceso a correo",
             "Buzón lleno",
@@ -17,7 +17,7 @@ export const helpAreas = [
     {
         name: "Internet y redes",
         description: "WiFi, cable, VPN o telefonía",
-        icon: "⌁",
+        icon: "wifi",
         issues: [
             "Problema de conexión WiFi",
             "Conexión por cable",
@@ -29,7 +29,7 @@ export const helpAreas = [
     {
         name: "Plataformas USM",
         description: "Aula, SIGA, pagos y sistemas",
-        icon: "▣",
+        icon: "laptop",
         issues: [
             "Aula Virtual",
             "SIGA",
@@ -41,7 +41,7 @@ export const helpAreas = [
     {
         name: "Software y licencias",
         description: "Programas y sistemas operativos",
-        icon: "▱",
+        icon: "box-seam",
         issues: [
             "Instalación de software",
             "Activación de licencia",
@@ -52,7 +52,7 @@ export const helpAreas = [
     {
         name: "Equipos e impresión",
         description: "Computadores, impresoras o proyectores",
-        icon: "▤",
+        icon: "printer",
         issues: [
             "Computador",
             "Impresora",
@@ -63,7 +63,7 @@ export const helpAreas = [
     {
         name: "Seguridad informática",
         description: "Virus, phishing o vulnerabilidades",
-        icon: "⌾",
+        icon: "shield-lock",
         issues: [
             "Posible virus",
             "Correo sospechoso o phishing",
@@ -74,7 +74,7 @@ export const helpAreas = [
     {
         name: "Infraestructura y espacios",
         description: "Baños, agua, luz, salas o mobiliario",
-        icon: "⌂",
+        icon: "building",
         issues: [
             "Electricidad o iluminación",
             "Agua o baños",
@@ -85,7 +85,7 @@ export const helpAreas = [
     {
         name: "Accesos y permisos",
         description: "Laboratorios, edificios o sistemas",
-        icon: "⊙",
+        icon: "key",
         issues: [
             "Acceso a edificio o laboratorio",
             "Permiso en sistema",
@@ -94,9 +94,9 @@ export const helpAreas = [
         ],
     },
     {
-        name: "Otro tema",
+        name: "Otra categoría",
         description: "No encuentro mi problema aquí",
-        icon: "•••",
+        icon: "three-dots",
         issues: ["Otro tema"],
     },
 ];

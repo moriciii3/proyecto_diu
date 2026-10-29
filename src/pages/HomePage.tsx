@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { statusClass } from "../data/formatters";
+import { statusClass, statusProgress } from "../data/formatters";
 import type { ServiceRequest } from "../types";
 
 type HomePageProps = {
@@ -12,29 +12,24 @@ function HomePage({ requests }: HomePageProps) {
         (request) => request.status !== "Resuelta",
     );
     const latestRequest = requests[0];
-    const progressPercent =
-        latestRequest?.status === "Resuelta"
-            ? 100
-            : latestRequest?.status === "En investigación"
-              ? 66
-              : latestRequest
-                ? 38
-                : 0;
+    const progressPercent = latestRequest
+        ? statusProgress(latestRequest.status)
+        : 0;
     const quickActions = [
         {
-            icon: "⌁",
+            icon: "exclamation-triangle",
             title: "Reportar un problema",
             description: "Algo dejó de funcionar o necesitas asistencia técnica.",
             area: "Internet y redes",
         },
         {
-            icon: "＋",
+            icon: "clipboard-plus",
             title: "Realizar una solicitud",
             description: "Pide acceso, una cuenta o un servicio institucional.",
             area: "Accesos y permisos",
         },
         {
-            icon: "◇",
+            icon: "search",
             title: "Buscar una solución",
             description: "Encuentra respuestas rápidas a problemas frecuentes.",
             area: "",
@@ -56,7 +51,8 @@ function HomePage({ requests }: HomePageProps) {
                             className="btn btn-primary btn-lg"
                             to="/solicitudes/nueva"
                         >
-                            ＋ Crear solicitud
+                            <i className="bi bi-plus-lg" aria-hidden="true" />{" "}
+                            Nueva solicitud
                         </Link>
                         <Link
                             className="btn btn-outline-primary btn-lg"
@@ -75,7 +71,13 @@ function HomePage({ requests }: HomePageProps) {
                             </div>
                             <span>solicitudes activas</span>
                         </div>
-                        <span className="status-pill status-pill--progress">
+                        <span
+                            className={
+                                latestRequest
+                                    ? statusClass(latestRequest.status)
+                                    : "status-pill"
+                            }
+                        >
                             {latestRequest?.status ?? "Sin solicitudes"}
                         </span>
                     </div>
@@ -86,7 +88,7 @@ function HomePage({ requests }: HomePageProps) {
                     </p>
                     <div className="activity-progress">
                         <div className="activity-progress-label">
-                            <span>Progreso del caso</span>
+                            <span>Progreso de la solicitud</span>
                             <span>{progressPercent}%</span>
                         </div>
                         <div
@@ -104,10 +106,10 @@ function HomePage({ requests }: HomePageProps) {
                         </div>
                     </div>
                     <Link
-                        className="btn btn-primary activity-link"
+                        className="btn btn-outline-primary activity-link"
                         to="/solicitudes"
                     >
-                        Revisar avances <span aria-hidden="true">→</span>
+                        Ver mis solicitudes
                     </Link>
                 </div>
             </section>
@@ -130,7 +132,12 @@ function HomePage({ requests }: HomePageProps) {
                                         : `/solicitudes/nueva?area=${encodeURIComponent(action.area)}`
                                 }
                             >
-                                <span className="quick-icon">{action.icon}</span>
+                                <span className="quick-icon">
+                                    <i
+                                        className={`bi bi-${action.icon}`}
+                                        aria-hidden="true"
+                                    />
+                                </span>
                                 <h3>{action.title}</h3>
                                 <p>{action.description}</p>
                             </Link>
@@ -146,7 +153,8 @@ function HomePage({ requests }: HomePageProps) {
                         <p>Revisa el estado y continúa una conversación.</p>
                     </div>
                     <Link className="text-link" to="/solicitudes">
-                        Ver todas <span aria-hidden="true">→</span>
+                        Ver todas{" "}
+                        <i className="bi bi-arrow-right" aria-hidden="true" />
                     </Link>
                 </div>
                 <div className="recent-list">
@@ -164,9 +172,10 @@ function HomePage({ requests }: HomePageProps) {
                             <span className={statusClass(request.status)}>
                                 {request.status}
                             </span>
-                            <span className="recent-chevron" aria-hidden="true">
-                                ›
-                            </span>
+                            <i
+                                className="bi bi-chevron-right recent-chevron"
+                                aria-hidden="true"
+                            />
                         </Link>
                     ))}
                     {requests.length === 0 && (

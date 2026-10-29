@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { formatDate, statusClass } from "../data/formatters";
+import { formatDate, STATUS_ORDER, statusClass } from "../data/formatters";
 import type { ServiceRequest } from "../types";
 
 type RequestsPageProps = {
     requests: ServiceRequest[];
 };
 
-// Permite encontrar solicitudes por texto y filtrar los casos por estado.
+// Permite encontrar solicitudes por texto y filtrarlas por estado.
 function RequestsPage({ requests }: RequestsPageProps) {
     const [statusFilter, setStatusFilter] = useState("Todas");
     const [search, setSearch] = useState("");
@@ -31,13 +31,13 @@ function RequestsPage({ requests }: RequestsPageProps) {
                 <div>
                     <span className="eyebrow">SEGUIMIENTO</span>
                     <h1>Mis solicitudes</h1>
-                    <p>Consulta el estado de tus casos y conversa con soporte.</p>
+                    <p>Consulta el estado de tus solicitudes y conversa con soporte.</p>
                 </div>
                 <Link
                     className="btn btn-primary"
                     to="/solicitudes/nueva"
                 >
-                    ＋ Nueva solicitud
+                    <i className="bi bi-plus-lg" aria-hidden="true" /> Nueva solicitud
                 </Link>
             </div>
 
@@ -70,9 +70,9 @@ function RequestsPage({ requests }: RequestsPageProps) {
                                 value={statusFilter}
                             >
                                 <option>Todas</option>
-                                <option>En investigación</option>
-                                <option>En curso</option>
-                                <option>Resuelta</option>
+                                {STATUS_ORDER.map((status) => (
+                                    <option key={status}>{status}</option>
+                                ))}
                             </select>
                         </div>
                         <div className="col-lg-3 filter-count">
@@ -100,9 +100,10 @@ function RequestsPage({ requests }: RequestsPageProps) {
                                 <span className={statusClass(request.status)}>
                                     {request.status}
                                 </span>
-                                <span className="row-arrow" aria-hidden="true">
-                                    →
-                                </span>
+                                <i
+                                    className="bi bi-chevron-right row-arrow"
+                                    aria-hidden="true"
+                                />
                             </Link>
                         ))}
                         {filteredRequests.length === 0 && (
