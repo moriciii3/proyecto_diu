@@ -8,7 +8,8 @@ type HeaderProps = {
 };
 
 // Presenta la marca, navegación y selector de vista en todas las páginas.
-function Header({ isAdministrative, onChangeView }: HeaderProps) {
+//function Header({ isAdministrative, onChangeView }: HeaderProps) {
+function Header({ }: HeaderProps) {
     // Resalta el enlace de la sección que está abierta.
     const linkClass = ({ isActive }: { isActive: boolean }) =>
         `header-link${isActive ? " header-link--active" : ""}`;
@@ -32,12 +33,13 @@ function Header({ isAdministrative, onChangeView }: HeaderProps) {
                     </NavLink>
                 </nav>
                 <div className="d-flex align-items-center gap-3 ms-auto">
+                    {/*
                     <div
                         className="view-switch"
                         role="group"
                         aria-label="Vista del prototipo"
                     >
-                        <button
+                       <button
                             aria-pressed={!isAdministrative}
                             className={!isAdministrative ? "selected" : ""}
                             onClick={() => onChangeView(false)}
@@ -53,7 +55,7 @@ function Header({ isAdministrative, onChangeView }: HeaderProps) {
                         >
                             Administrativo
                         </button>
-                    </div>
+                    </div> */}
                     <span
                         className="user-avatar"
                         role="img"
