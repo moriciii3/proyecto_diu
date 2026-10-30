@@ -557,7 +557,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                             Describe el problema
                         </h2>
                         <p className="panel-intro">
-                            Mientras más detalles nos des, más rápido podremos
+                            Mientras más detalles ingreses, más rápido podremos
                             ayudarte. Todos los campos son obligatorios, salvo
                             los que dicen «(opcional)».
                         </p>
@@ -590,11 +590,13 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                     )}
                                 </Field>
                                 <div className="selection-note">
-                                    {TERMS.category}:{" "}
-                                    <strong>{draft.area}</strong>.{" "}
+                                    <span className="selection-note__text">
+                                        {TERMS.category}: <strong>{draft.area}</strong>.
+                                    </span>
                                     <Button
                                         onClick={() => goToStep(1)}
                                         variant="tertiary"
+                                        className="selection-note__button"
                                     >
                                         Cambiar categoría
                                     </Button>
@@ -763,9 +765,13 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                             <p className="panel-intro">
                                 Estas preguntas nos ayudan a ordenar la atención
                                 según cuántas personas se ven afectadas y qué
-                                tan urgente es. Responde con lo que está
-                                pasando: todas las solicitudes se revisan,
+                                tan urgente es.<br></br>
+                                Todas las solicitudes se revisan,
                                 aunque el problema te afecte solo a ti.
+                                <br></br>
+                                <br></br>
+                                Responde con lo que está
+                                pasando:
                             </p>
                             {impactQuestions.map((question) => {
                                 const error = errors[question.key];
@@ -880,7 +886,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                                                                 event.target.value,
                                                             )
                                                         }
-                                                        placeholder="nombre.apellido@usm.cl"
+                                                        placeholder="Ej.: aperez@usm.cl"
                                                         type="email"
                                                         value={draft.email}
                                                     />
