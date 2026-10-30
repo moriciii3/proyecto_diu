@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { TERMS } from "../data/glossary";
+import { currentUser } from "../data/session";
 
 type HeaderProps = {
     isAdministrative: boolean;
@@ -19,19 +21,24 @@ function Header({ isAdministrative, onChangeView }: HeaderProps) {
                     <span className="brand-name">Mesa de Servicios</span>
                 </NavLink>
                 <nav className="site-nav" aria-label="Navegación principal">
-                    <NavLink className={linkClass} to="/">
+                    <NavLink className={linkClass} to="/" end>
                         Inicio
                     </NavLink>
                     <NavLink className={linkClass} to="/solicitudes">
-                        Mis solicitudes
+                        {TERMS.myRequests}
+                    </NavLink>
+                    <NavLink className={linkClass} to="/ayuda">
+                        Ayuda
                     </NavLink>
                 </nav>
                 <div className="d-flex align-items-center gap-3 ms-auto">
                     <div
                         className="view-switch"
-                        aria-label="Cambiar vista del prototipo"
+                        role="group"
+                        aria-label="Vista del prototipo"
                     >
                         <button
+                            aria-pressed={!isAdministrative}
                             className={!isAdministrative ? "selected" : ""}
                             onClick={() => onChangeView(false)}
                             type="button"
@@ -39,6 +46,7 @@ function Header({ isAdministrative, onChangeView }: HeaderProps) {
                             Estudiante
                         </button>
                         <button
+                            aria-pressed={isAdministrative}
                             className={isAdministrative ? "selected" : ""}
                             onClick={() => onChangeView(true)}
                             type="button"
@@ -46,8 +54,12 @@ function Header({ isAdministrative, onChangeView }: HeaderProps) {
                             Administrativo
                         </button>
                     </div>
-                    <span className="user-avatar" aria-label="Catalina Zenteno">
-                        CZ
+                    <span
+                        className="user-avatar"
+                        role="img"
+                        aria-label={`Sesión iniciada como ${currentUser.name}`}
+                    >
+                        {currentUser.initials}
                     </span>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import Button from "../components/Button";
 import { formatDate, STATUS_ORDER, statusClass } from "../data/formatters";
+import { STATUS_LABELS, TERMS } from "../data/glossary";
 import type { ServiceRequest } from "../types";
 
 type RequestsPageProps = {
@@ -30,15 +32,12 @@ function RequestsPage({ requests }: RequestsPageProps) {
             <div className="page-title-row">
                 <div>
                     <span className="eyebrow">SEGUIMIENTO</span>
-                    <h1>Mis solicitudes</h1>
-                    <p>Consulta el estado de tus solicitudes y conversa con soporte.</p>
+                    <h1>{TERMS.myRequests}</h1>
+                    <p>Consulta el estado de tus solicitudes y conversa con el equipo a cargo.</p>
                 </div>
-                <Link
-                    className="btn btn-primary"
-                    to="/solicitudes/nueva"
-                >
-                    <i className="bi bi-plus-lg" aria-hidden="true" /> Nueva solicitud
-                </Link>
+                <Button iconStart="plus-lg" to="/solicitudes/nueva">
+                    {TERMS.newRequest}
+                </Button>
             </div>
 
             <section className="card panel-card">
@@ -71,7 +70,9 @@ function RequestsPage({ requests }: RequestsPageProps) {
                             >
                                 <option>Todas</option>
                                 {STATUS_ORDER.map((status) => (
-                                    <option key={status}>{status}</option>
+                                    <option key={status} value={status}>
+                                        {STATUS_LABELS[status]}
+                                    </option>
                                 ))}
                             </select>
                         </div>
@@ -93,12 +94,12 @@ function RequestsPage({ requests }: RequestsPageProps) {
                                 <span className="request-row-main">
                                     <strong>{request.title}</strong>
                                     <span>
-                                        {request.area} · Creada el{" "}
+                                        {request.area} · {TERMS.received} el{" "}
                                         {formatDate(request.createdAt)}
                                     </span>
                                 </span>
                                 <span className={statusClass(request.status)}>
-                                    {request.status}
+                                    {STATUS_LABELS[request.status]}
                                 </span>
                                 <i
                                     className="bi bi-chevron-right row-arrow"

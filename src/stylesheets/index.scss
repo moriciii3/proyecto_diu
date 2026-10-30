@@ -176,6 +176,7 @@ h3,
 }
 
 .view-switch button {
+  min-height: var(--control-min-height);
   padding: 6px 9px;
   border: 0;
   border-radius: calc(var(--radius-sm) - 4px);
@@ -272,34 +273,47 @@ h3,
   box-shadow: 0 5px 12px rgba(24, 87, 164, 0.14);
 }
 
-.hero-copy .btn-primary {
-  border-color: var(--color-surface);
-  background: var(--color-surface);
-  color: var(--color-primary-hover);
+.btn--on-dark.btn-primary {
   box-shadow: 0 5px 13px rgba(7, 37, 73, 0.2);
 }
 
-.hero-copy .btn-primary:hover,
-.hero-copy .btn-primary:focus {
-  border-color: var(--color-primary-subtle);
-  background: var(--color-primary-subtle);
+:focus-visible,
+.btn:focus-visible,
+.btn-tertiary:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.site-header :focus-visible,
+.hero-copy :focus-visible,
+.btn--on-dark:focus-visible {
+  outline-color: var(--color-focus-on-dark);
+}
+
+.btn-tertiary {
+  display: inline-flex;
+  min-height: var(--control-min-height);
+  align-items: center;
+  gap: 6px;
+  padding: 0 2px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.btn-tertiary:hover {
   color: var(--color-primary-hover);
+  text-decoration: underline;
 }
 
-.hero-copy .btn-outline-primary {
-  border-color: rgba(255, 255, 255, 0.65);
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--color-surface);
+.page-back {
+  margin-bottom: 18px;
 }
-
-.hero-copy .btn-outline-primary:hover {
-  border-color: var(--color-surface);
-  background: rgba(255, 255, 255, 0.16);
-  color: var(--color-surface);
-}
-
-
-
 
 .hero-activity {
   display: flex;
@@ -482,22 +496,6 @@ h3,
   line-height: 1.55;
 }
 
-.text-link,
-.inline-button {
-  border: 0;
-  background: transparent;
-  color: var(--color-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  text-decoration: none;
-}
-
-.text-link:hover,
-.inline-button:hover {
-  color: var(--color-primary-hover);
-  text-decoration: underline;
-}
-
 .recent-list,
 .request-table {
   overflow: hidden;
@@ -614,9 +612,149 @@ h3,
 }
 
 .form-control:focus,
-.form-select:focus {
+.form-select:focus,
+.form-check-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.field-optional {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+}
+
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 6px;
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.field--invalid .form-control,
+.field--invalid .form-select,
+.choice-group--invalid .choice-option {
+  border-color: var(--color-danger);
+}
+
+.field-counter {
+  float: right;
+}
+
+.error-summary ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.error-summary .btn-tertiary {
+  min-height: 32px;
+  color: inherit;
+  text-decoration: underline;
+}
+
+.impact-block {
+  margin-top: 28px;
+  padding-top: 25px;
+  border-top: 1px solid var(--color-border);
+}
+
+.impact-block h2 {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.choice-group {
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+}
+
+.choice-group legend {
+  float: none;
+  width: auto;
+  margin-bottom: 7px;
+  padding: 0;
+}
+
+.choice-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.choice-option {
+  display: flex;
+  min-height: var(--control-min-height);
+  flex: 1 1 180px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.choice-option:hover,
+.choice-option:has(input:checked) {
   border-color: var(--color-primary-light);
-  box-shadow: 0 0 0 3px rgba(24, 87, 164, 0.1);
+  background: var(--color-primary-subtle);
+}
+
+.choice-option .form-check-input {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.contact-summary .review-details {
+  margin-bottom: 8px;
+}
+
+.leave-dialog {
+  max-width: 440px;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
+}
+
+.leave-dialog::backdrop {
+  background: rgba(23, 36, 59, 0.45);
+}
+
+.leave-dialog h2 {
+  margin: 0 0 8px;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.leave-dialog p {
+  margin: 0 0 20px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.leave-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.success-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.success-banner p {
+  margin: 4px 0 0;
 }
 
 .filter-count {
@@ -631,19 +769,6 @@ h3,
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   text-align: center;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 26px;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: var(--color-primary);
 }
 
 .form-page-heading {
@@ -668,8 +793,9 @@ h3,
 .stepper {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
   padding: 0 5px;
+  list-style: none;
 }
 
 .stepper-item {
@@ -782,7 +908,6 @@ h3,
 }
 
 .form-step-footer .btn {
-  min-height: 42px;
   padding-right: 17px;
   padding-left: 17px;
   font-size: var(--font-size-sm);
@@ -831,6 +956,11 @@ h3,
   border-radius: var(--radius-md);
   background: var(--color-surface-muted);
   cursor: pointer;
+}
+
+.attachment-box:focus-within {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .attachment-box:hover {
@@ -1088,8 +1218,11 @@ h3,
 }
 
 .message-form .btn {
-  min-height: 43px;
   padding: 0 20px;
+}
+
+.message-form > div {
+  flex: 1;
 }
 
 .details-card {

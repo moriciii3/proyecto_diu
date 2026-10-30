@@ -1,10 +1,35 @@
 import { Link } from "react-router-dom";
-import { statusClass, statusProgress } from "../data/formatters";
+import Button from "../components/Button";
+import { statusClass, statusStep, TOTAL_STEPS } from "../data/formatters";
+import { STATUS_LABELS, TERMS } from "../data/glossary";
 import type { ServiceRequest } from "../types";
 
 type HomePageProps = {
     requests: ServiceRequest[];
 };
+
+const quickActions = [
+    {
+        icon: "exclamation-triangle",
+        title: "Algo no funciona",
+        description:
+            "Cuéntanos qué falla: el WiFi, un equipo, una plataforma, una sala o un baño.",
+        to: "/solicitudes/nueva",
+    },
+    {
+        icon: "clipboard-plus",
+        title: "Necesito un acceso o servicio",
+        description:
+            "Pide un permiso, una cuenta o la instalación de un programa.",
+        to: "/solicitudes/nueva",
+    },
+    {
+        icon: "search",
+        title: "Buscar una solución",
+        description: "Encuentra respuestas rápidas a problemas frecuentes.",
+        to: "/ayuda",
+    },
+];
 
 // Resume la actividad y ofrece accesos rápidos para las tareas más comunes.
 function HomePage({ requests }: HomePageProps) {
@@ -12,54 +37,39 @@ function HomePage({ requests }: HomePageProps) {
         (request) => request.status !== "Resuelta",
     );
     const latestRequest = requests[0];
-    const progressPercent = latestRequest
-        ? statusProgress(latestRequest.status)
-        : 0;
-    const quickActions = [
-        {
-            icon: "exclamation-triangle",
-            title: "Reportar un problema",
-            description: "Algo dejó de funcionar o necesitas asistencia técnica.",
-            area: "Internet y redes",
-        },
-        {
-            icon: "clipboard-plus",
-            title: "Realizar una solicitud",
-            description: "Pide acceso, una cuenta o un servicio institucional.",
-            area: "Accesos y permisos",
-        },
-        {
-            icon: "search",
-            title: "Buscar una solución",
-            description: "Encuentra respuestas rápidas a problemas frecuentes.",
-            area: "",
-        },
-    ];
+    const currentStep = latestRequest ? statusStep(latestRequest.status) : 0;
+    const stepText = latestRequest
+        ? `Paso ${currentStep} de ${TOTAL_STEPS}: ${STATUS_LABELS[latestRequest.status]}`
+        : "";
 
     return (
         <main className="container page-content">
             <section className="hero-panel row g-0 align-items-stretch">
                 <div className="col-lg-8 hero-copy">
-                    <span className="eyebrow">MESA DE SERVICIOS 360°</span>
+                    <span className="eyebrow">AYUDA USM</span>
                     <h1>¿En qué podemos ayudarte hoy?</h1>
                     <p>
-                        Reporta un problema o realiza una solicitud. Te
-                        guiaremos paso a paso y podrás seguir todo el proceso.
+                        Cuéntanos qué pasa o qué necesitas. Te guiaremos paso a
+                        paso y podrás seguir tu solicitud hasta que esté
+                        resuelta.
                     </p>
                     <div className="d-flex flex-wrap gap-2 mt-4">
-                        <Link
-                            className="btn btn-primary btn-lg"
+                        <Button
+                            iconStart="plus-lg"
+                            onDark
+                            size="lg"
                             to="/solicitudes/nueva"
                         >
-                            <i className="bi bi-plus-lg" aria-hidden="true" />{" "}
-                            Nueva solicitud
-                        </Link>
-                        <Link
-                            className="btn btn-outline-primary btn-lg"
+                            {TERMS.newRequest}
+                        </Button>
+                        <Button
+                            onDark
+                            size="lg"
                             to="/solicitudes"
+                            variant="secondary"
                         >
-                            Ver mis solicitudes
-                        </Link>
+                            {TERMS.viewMyRequests}
+                        </Button>
                     </div>
                 </div>
                 <div className="col-lg-4 hero-activity">
@@ -69,7 +79,11 @@ function HomePage({ requests }: HomePageProps) {
                             <div className="activity-number">
                                 {activeRequests.length}
                             </div>
-                            <span>solicitudes activas</span>
+                            <span>
+                                {activeRequests.length === 1
+                                    ? "solicitud activa"
+                                    : "solicitudes activas"}
+                            </span>
                         </div>
                         <span
                             className={
@@ -78,39 +92,52 @@ function HomePage({ requests }: HomePageProps) {
                                     : "status-pill"
                             }
                         >
-                            {latestRequest?.status ?? "Sin solicitudes"}
+                            {latestRequest
+                                ? STATUS_LABELS[latestRequest.status]
+                                : "Sin solicitudes"}
                         </span>
                     </div>
                     <p>
                         {latestRequest
-                            ? `La solicitud más reciente fue actualizada ${latestRequest.updatedLabel.toLowerCase()}.`
+                            ? `Tu solicitud más reciente fue actualizada ${latestRequest.updatedLabel.toLowerCase()}.`
                             : "Aún no tienes solicitudes. Puedes crear una cuando lo necesites."}
                     </p>
-                    <div className="activity-progress">
-                        <div className="activity-progress-label">
-                            <span>Progreso de la solicitud</span>
-                            <span>{progressPercent}%</span>
-                        </div>
-                        <div
-                            aria-label={`Progreso de la solicitud: ${progressPercent}%`}
-                            aria-valuemax={100}
-                            aria-valuemin={0}
-                            aria-valuenow={progressPercent}
-                            className="progress"
-                            role="progressbar"
-                        >
+                    {latestRequest && (
+                        <div className="activity-progress">
+                            <div className="activity-progress-label">
+                                <span>Avance de tu última solicitud</span>
+                                <span>
+                                    Paso {currentStep} de {TOTAL_STEPS}
+                                </span>
+                            </div>
                             <div
-                                className="progress-bar"
-                                style={{ width: `${progressPercent}%` }}
-                            />
+                                aria-label="Avance de tu última solicitud"
+                                aria-valuemax={TOTAL_STEPS}
+                                aria-valuemin={1}
+                                aria-valuenow={currentStep}
+                                aria-valuetext={stepText}
+                                className="progress"
+                                role="progressbar"
+                            >
+                                <div
+                                    className="progress-bar"
+                                    style={{
+                                        width: `${(currentStep / TOTAL_STEPS) * 100}%`,
+                                    }}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <Link
-                        className="btn btn-outline-primary activity-link"
-                        to="/solicitudes"
-                    >
-                        Ver mis solicitudes
-                    </Link>
+                    )}
+                    {latestRequest && (
+                        <Button
+                            className="activity-link"
+                            iconEnd="arrow-right"
+                            to={`/solicitudes/${latestRequest.id}`}
+                            variant="tertiary"
+                        >
+                            Ver detalle
+                        </Button>
+                    )}
                 </div>
             </section>
 
@@ -124,14 +151,7 @@ function HomePage({ requests }: HomePageProps) {
                 <div className="row g-3">
                     {quickActions.map((action) => (
                         <div className="col-md-4" key={action.title}>
-                            <Link
-                                className="quick-card"
-                                to={
-                                    action.title === "Buscar una solución"
-                                        ? "/ayuda"
-                                        : `/solicitudes/nueva?area=${encodeURIComponent(action.area)}`
-                                }
-                            >
+                            <Link className="quick-card" to={action.to}>
                                 <span className="quick-icon">
                                     <i
                                         className={`bi bi-${action.icon}`}
@@ -152,10 +172,13 @@ function HomePage({ requests }: HomePageProps) {
                         <h2>Solicitudes recientes</h2>
                         <p>Revisa el estado y continúa una conversación.</p>
                     </div>
-                    <Link className="text-link" to="/solicitudes">
-                        Ver todas{" "}
-                        <i className="bi bi-arrow-right" aria-hidden="true" />
-                    </Link>
+                    <Button
+                        iconEnd="arrow-right"
+                        to="/solicitudes"
+                        variant="tertiary"
+                    >
+                        Ver todas
+                    </Button>
                 </div>
                 <div className="recent-list">
                     {requests.slice(0, 3).map((request) => (
@@ -170,7 +193,7 @@ function HomePage({ requests }: HomePageProps) {
                                 <span>{request.area}</span>
                             </span>
                             <span className={statusClass(request.status)}>
-                                {request.status}
+                                {STATUS_LABELS[request.status]}
                             </span>
                             <i
                                 className="bi bi-chevron-right recent-chevron"

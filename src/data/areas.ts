@@ -3,6 +3,8 @@ export const helpAreas = [
         name: "Correo y cuentas",
         description: "Acceso, correo o cuenta institucional",
         icon: "envelope",
+        titleExample: "Ej.: No puedo entrar a mi correo USM",
+        requiresLocation: false,
         issues: [
             "Problema de acceso a correo",
             "Buzón lleno",
@@ -18,6 +20,8 @@ export const helpAreas = [
         name: "Internet y redes",
         description: "WiFi, cable, VPN o telefonía",
         icon: "wifi",
+        titleExample: "Ej.: El WiFi se corta en la biblioteca",
+        requiresLocation: false,
         issues: [
             "Problema de conexión WiFi",
             "Conexión por cable",
@@ -30,6 +34,8 @@ export const helpAreas = [
         name: "Plataformas USM",
         description: "Aula, SIGA, pagos y sistemas",
         icon: "laptop",
+        titleExample: "Ej.: Aula Virtual no carga mis cursos",
+        requiresLocation: false,
         issues: [
             "Aula Virtual",
             "SIGA",
@@ -42,6 +48,8 @@ export const helpAreas = [
         name: "Software y licencias",
         description: "Programas y sistemas operativos",
         icon: "box-seam",
+        titleExample: "Ej.: No puedo activar la licencia de Office",
+        requiresLocation: false,
         issues: [
             "Instalación de software",
             "Activación de licencia",
@@ -53,6 +61,8 @@ export const helpAreas = [
         name: "Equipos e impresión",
         description: "Computadores, impresoras o proyectores",
         icon: "printer",
+        titleExample: "Ej.: El proyector de la sala A-105 no enciende",
+        requiresLocation: false,
         issues: [
             "Computador",
             "Impresora",
@@ -64,6 +74,8 @@ export const helpAreas = [
         name: "Seguridad informática",
         description: "Virus, phishing o vulnerabilidades",
         icon: "shield-lock",
+        titleExample: "Ej.: Recibí un correo que pide mi contraseña",
+        requiresLocation: false,
         issues: [
             "Posible virus",
             "Correo sospechoso o phishing",
@@ -75,6 +87,8 @@ export const helpAreas = [
         name: "Infraestructura y espacios",
         description: "Baños, agua, luz, salas o mobiliario",
         icon: "building",
+        titleExample: "Ej.: No hay luz en la sala A-105",
+        requiresLocation: true,
         issues: [
             "Electricidad o iluminación",
             "Agua o baños",
@@ -86,6 +100,8 @@ export const helpAreas = [
         name: "Accesos y permisos",
         description: "Laboratorios, edificios o sistemas",
         icon: "key",
+        titleExample: "Ej.: Mi tarjeta no abre el laboratorio",
+        requiresLocation: false,
         issues: [
             "Acceso a edificio o laboratorio",
             "Permiso en sistema",
@@ -97,6 +113,8 @@ export const helpAreas = [
         name: "Otra categoría",
         description: "No encuentro mi problema aquí",
         icon: "three-dots",
+        titleExample: "Ej.: Necesito ayuda con un trámite",
+        requiresLocation: false,
         issues: ["Otro tema"],
     },
 ];

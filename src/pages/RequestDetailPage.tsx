@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
+import Button from "../components/Button";
 import { formatDate, STATUS_ORDER, statusClass } from "../data/formatters";
+import { STATUS_LABELS, TERMS } from "../data/glossary";
 import type { RequestStatus, ServiceRequest } from "../types";
 
 // Textos de cada paso del seguimiento, nombrados igual que los estados.
@@ -33,16 +35,26 @@ function RequestDetailPage({
     onSendMessage,
 }: RequestDetailPageProps) {
     const { requestId } = useParams();
+    const location = useLocation();
     const request = requests.find((item) => item.id === requestId);
     const [message, setMessage] = useState("");
+    const [messageError, setMessageError] = useState("");
+    const [showCreatedBanner, setShowCreatedBanner] = useState(
+        Boolean((location.state as { created?: boolean } | null)?.created),
+    );
 
     // Evita mensajes vacíos y actualiza la conversación mediante el estado común.
     function handleSendMessage(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const cleanedMessage = message.trim();
-        if (!request || !cleanedMessage) return;
+        if (!request) return;
+        if (!cleanedMessage) {
+            setMessageError("Escribe un mensaje antes de enviar.");
+            return;
+        }
         onSendMessage(request.id, cleanedMessage);
         setMessage("");
+        setMessageError("");
     }
 
     if (!request) return <Navigate to="/solicitudes" replace />;
@@ -51,17 +63,38 @@ function RequestDetailPage({
 
     return (
         <main className="container page-content">
-            <Link className="back-link" to="/solicitudes">
-                <i className="bi bi-arrow-left" aria-hidden="true" /> Volver a
-                mis solicitudes
-            </Link>
+            <div className="page-back">
+                <Button iconStart="arrow-left" to="/solicitudes" variant="tertiary">
+                    Volver a mis solicitudes
+                </Button>
+            </div>
+            {showCreatedBanner && (
+                <div className="alert alert-success success-banner" role="status">
+                    <div>
+                        <strong>¡Listo! Recibimos tu solicitud #{request.id}.</strong>
+                        <p>
+                            Te avisaremos por correo cada vez que avance. Si
+                            necesitas agregar algo, escríbele al equipo a cargo
+                            en la conversación.
+                        </p>
+                    </div>
+                    <Button
+                        aria-label="Cerrar aviso"
+                        iconStart="x-lg"
+                        onClick={() => setShowCreatedBanner(false)}
+                        variant="tertiary"
+                    >
+                        Cerrar
+                    </Button>
+                </div>
+            )}
             <div className="detail-heading">
                 <div>
                     <span className="eyebrow">Solicitud #{request.id}</span>
                     <h1>{request.title}</h1>
                 </div>
                 <span className={statusClass(request.status)}>
-                    {request.status}
+                    {STATUS_LABELS[request.status]}
                 </span>
             </div>
 
@@ -76,7 +109,7 @@ function RequestDetailPage({
                                         <i className="bi bi-check-lg" aria-hidden="true" />
                                     </span>
                                     <div>
-                                        <h3>Recibida</h3>
+                                        <h3>{TERMS.received}</h3>
                                         <p>
                                             {formatDate(request.createdAt)} · Te
                                             enviamos una confirmación por correo.
@@ -106,7 +139,7 @@ function RequestDetailPage({
                                                 )}
                                             </span>
                                             <div>
-                                                <h3>{status}</h3>
+                                                <h3>{STATUS_LABELS[status]}</h3>
                                                 <p>
                                                     {isCurrent
                                                         ? `${request.updatedLabel} · ${request.responsible} está revisando tu solicitud.`
@@ -154,7 +187,7 @@ function RequestDetailPage({
                                     <div className="conversation-empty">
                                         Aún no hay mensajes. Si necesitas
                                         agregar información, puedes escribirle
-                                        al equipo de soporte.
+                                        al equipo a cargo.
                                     </div>
                                 )}
                             </div>
@@ -168,23 +201,40 @@ function RequestDetailPage({
                                 >
                                     Escribe una respuesta
                                 </label>
-                                <textarea
-                                    className="form-control"
-                                    id="reply-message"
-                                    onChange={(event) =>
-                                        setMessage(event.target.value)
-                                    }
-                                    placeholder="Escribe una respuesta…"
-                                    rows={2}
-                                    value={message}
-                                />
-                                <button
-                                    className="btn btn-primary"
-                                    disabled={!message.trim()}
-                                    type="submit"
-                                >
+                                <div>
+                                    <textarea
+                                        aria-describedby={
+                                            messageError
+                                                ? "reply-message-error"
+                                                : undefined
+                                        }
+                                        aria-invalid={messageError ? true : undefined}
+                                        className="form-control"
+                                        id="reply-message"
+                                        onChange={(event) => {
+                                            setMessage(event.target.value);
+                                            setMessageError("");
+                                        }}
+                                        placeholder="Escribe tu mensaje al equipo…"
+                                        rows={2}
+                                        value={message}
+                                    />
+                                    {messageError && (
+                                        <div
+                                            className="field-error"
+                                            id="reply-message-error"
+                                        >
+                                            <i
+                                                className="bi bi-exclamation-circle"
+                                                aria-hidden="true"
+                                            />
+                                            {messageError}
+                                        </div>
+                                    )}
+                                </div>
+                                <Button iconEnd="send" type="submit">
                                     Enviar
-                                </button>
+                                </Button>
                             </form>
                         </div>
                     </section>
@@ -204,7 +254,7 @@ function RequestDetailPage({
                                     <dd>{request.area}</dd>
                                 </div>
                                 <div>
-                                    <dt>Tipo específico</dt>
+                                    <dt>{TERMS.issueType}</dt>
                                     <dd>{request.issueType}</dd>
                                 </div>
                                 <div>
@@ -212,7 +262,7 @@ function RequestDetailPage({
                                     <dd>{request.campus}</dd>
                                 </div>
                                 <div>
-                                    <dt>Creada</dt>
+                                    <dt>{TERMS.received}</dt>
                                     <dd>{formatDate(request.createdAt)}</dd>
                                 </div>
                                 <div>

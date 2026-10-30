@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import Button from "../components/Button";
+import { TERMS } from "../data/glossary";
 
 const helpArticles = [
     {
@@ -12,7 +13,7 @@ const helpArticles = [
         title: "¿Cómo conectarme a la red WiFi USM?",
         category: "Internet y redes",
         answer:
-            "Selecciona la red institucional disponible en tu campus e inicia sesión con tus credenciales USM. Si la conexión se interrumpe en distintos dispositivos, puedes reportar el sector y el horario.",
+            "Selecciona la red institucional disponible en tu campus e inicia sesión con tus credenciales USM. Si la conexión se interrumpe en distintos dispositivos, puedes crear una solicitud indicando el sector y el horario.",
     },
     {
         title: "No puedo entrar a Aula Virtual o SIGA",
@@ -43,9 +44,11 @@ function HelpPage() {
 
     return (
         <main className="container page-content page-content--narrow">
-            <Link className="back-link" to="/">
-                <i className="bi bi-arrow-left" aria-hidden="true" /> Volver al inicio
-            </Link>
+            <div className="page-back">
+                <Button iconStart="arrow-left" to="/" variant="tertiary">
+                    Volver al inicio
+                </Button>
+            </div>
             <div className="page-title-row">
                 <div>
                     <span className="eyebrow">CENTRO DE AYUDA</span>
@@ -55,12 +58,9 @@ function HelpPage() {
                         pasando.
                     </p>
                 </div>
-                <Link
-                    className="btn btn-primary"
-                    to="/solicitudes/nueva"
-                >
-                    <i className="bi bi-plus-lg" aria-hidden="true" /> Nueva solicitud
-                </Link>
+                <Button iconStart="plus-lg" to="/solicitudes/nueva">
+                    {TERMS.newRequest}
+                </Button>
             </div>
             <section className="card panel-card">
                 <div className="card-body">

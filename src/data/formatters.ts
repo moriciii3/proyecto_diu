@@ -7,11 +7,10 @@ export const STATUS_ORDER: RequestStatus[] = [
     "Resuelta",
 ];
 
-// Calcula el avance según la posición del estado dentro del flujo.
-export function statusProgress(status: RequestStatus): number {
-    return Math.round(
-        ((STATUS_ORDER.indexOf(status) + 1) / STATUS_ORDER.length) * 100,
-    );
+export const TOTAL_STEPS = STATUS_ORDER.length + 1;
+
+export function statusStep(status: RequestStatus): number {
+    return STATUS_ORDER.indexOf(status) + 2;
 }
 
 // Da formato breve a las fechas para que la lista sea fácil de recorrer.

@@ -31,6 +31,12 @@
   --color-status-resolved-bg: #e5f6ed;
   --color-status-resolved-text: #26734b; // 5.2:1
 
+  --color-danger: #b42318;
+  --color-danger-subtle: #fdecea;
+  --color-focus: #1857a4;
+  --color-focus-on-dark: #ffffff;
+  --control-min-height: 44px;
+
   // Tipografía
   --font-family-base: 'DM Sans', sans-serif;
   --font-family-heading: 'Manrope', sans-serif;
@@ -71,6 +77,11 @@
   --bs-btn-font-weight: var(--font-weight-bold);
   --bs-btn-border-radius: var(--radius-sm);
   --bs-btn-focus-box-shadow: 0 0 0 0.25rem var(--bs-focus-ring-color);
+  display: inline-flex;
+  min-height: var(--control-min-height);
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-lg {
@@ -101,6 +112,41 @@
   --bs-btn-active-color: var(--color-primary-hover);
   --bs-btn-active-bg: var(--color-primary-subtle);
   --bs-btn-active-border-color: var(--color-primary);
+}
+
+.btn-outline-danger {
+  --bs-btn-color: var(--color-danger);
+  --bs-btn-border-color: var(--color-danger);
+  --bs-btn-hover-color: var(--color-surface);
+  --bs-btn-hover-bg: var(--color-danger);
+  --bs-btn-hover-border-color: var(--color-danger);
+  --bs-btn-active-color: var(--color-surface);
+  --bs-btn-active-bg: var(--color-danger);
+  --bs-btn-active-border-color: var(--color-danger);
+}
+
+.btn--on-dark.btn-primary {
+  --bs-btn-color: var(--color-primary-hover);
+  --bs-btn-bg: var(--color-surface);
+  --bs-btn-border-color: var(--color-surface);
+  --bs-btn-hover-color: var(--color-primary-hover);
+  --bs-btn-hover-bg: var(--color-primary-subtle);
+  --bs-btn-hover-border-color: var(--color-primary-subtle);
+  --bs-btn-active-color: var(--color-primary-hover);
+  --bs-btn-active-bg: var(--color-primary-subtle);
+  --bs-btn-active-border-color: var(--color-primary-subtle);
+}
+
+.btn--on-dark.btn-outline-primary {
+  --bs-btn-color: var(--color-surface);
+  --bs-btn-bg: rgba(255, 255, 255, 0.08);
+  --bs-btn-border-color: rgba(255, 255, 255, 0.65);
+  --bs-btn-hover-color: var(--color-surface);
+  --bs-btn-hover-bg: rgba(255, 255, 255, 0.16);
+  --bs-btn-hover-border-color: var(--color-surface);
+  --bs-btn-active-color: var(--color-surface);
+  --bs-btn-active-bg: rgba(255, 255, 255, 0.16);
+  --bs-btn-active-border-color: var(--color-surface);
 }
 
 .progress {
