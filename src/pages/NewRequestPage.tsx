@@ -151,7 +151,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                             Agrupamos los servicios para que no tengas que
                             buscar en una lista técnica extensa.
                         </p>
-                        <div className="row g-3">
+                        <div className="row g-3 category-grid">
                             {helpAreas.map((area) => (
                                 <div className="col-md-6" key={area.name}>
                                     <button
