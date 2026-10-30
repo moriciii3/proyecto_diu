@@ -507,7 +507,7 @@ function NewRequestPage({ onCreate }: NewRequestPageProps) {
                             Agrupamos los temas para que encuentres el tuyo
                             rápido. Si no estás seguro, elige «Otra categoría».
                         </p>
-                        <div className="row g-3">
+                        <div className="row g-3 category-grid">
                             {helpAreas.map((area, index) => (
                                 <div className="col-md-6" key={area.name}>
                                     <button

@@ -17,7 +17,7 @@ function Header({ isAdministrative, onChangeView }: HeaderProps) {
         <header className="site-header">
             <div className="container d-flex align-items-center justify-content-between gap-3 flex-wrap">
                 <NavLink className="brand-lockup" to="/" aria-label="USM Inicio">
-                    <span className="brand-mark">USM</span>
+                    <span className="brand-mark"><img src="/logo-usm.png" alt="Escudo de la USM" /></span>
                     <span className="brand-name">Mesa de Servicios</span>
                 </NavLink>
                 <nav className="site-nav" aria-label="Navegación principal">
